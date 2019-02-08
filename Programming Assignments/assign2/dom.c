@@ -4,6 +4,7 @@
 int **point, *a, *b;
 
 void dom(int, int);
+int dominateCheck (int*, int*);
 
 int main () {
 
