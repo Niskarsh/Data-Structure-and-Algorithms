@@ -29,11 +29,13 @@ int main () {
             }
             *(a+j) = i;
         }
-        *(b+i) = 0;
+        *(b+i) = 1;
     }
-    for(i=0;i<n;i++) {
-        printf("A is %d that is %d %d\n", *(a+i), point[*(a+i)][0], point[*(a+i)][1]);
-    }
+
+    dom(0, n-1);
+    // for(i=0;i<n;i++) {
+    //     printf("A is %d that is %d %d\n", *(a+i), point[*(a+i)][0], point[*(a+i)][1]);
+    // }
     
     return 0;
 }
@@ -41,4 +43,16 @@ int main () {
 void dom (int i, int j) {
 
     
+}
+
+int dominateCheck (int *p, int *q) {
+    if(p[0]==q[0]&&p[1]==q[1]) {
+        return 0;
+    } else if (p[0]<=q[0]&&p[1]<=q[1]) {
+        return 2;
+    } else if (p[0]>=q[0]&&p[1]>=q[1]) {
+        return 1;
+    } else {
+        return 3;
+    }
 }
