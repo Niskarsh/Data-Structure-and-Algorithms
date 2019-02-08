@@ -2,6 +2,9 @@
 #include <malloc.h>
 
 int **point, *a, *b;
+
+void dom(int, int);
+
 int main () {
 
     int n, i, j=0, k;
@@ -26,10 +29,16 @@ int main () {
             }
             *(a+j) = i;
         }
+        *(b+i) = 0;
     }
     for(i=0;i<n;i++) {
         printf("A is %d that is %d %d\n", *(a+i), point[*(a+i)][0], point[*(a+i)][1]);
     }
     
     return 0;
+}
+
+void dom (int i, int j) {
+
+    
 }
