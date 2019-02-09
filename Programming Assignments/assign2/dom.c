@@ -60,6 +60,7 @@ void mergesort (int m, int n) {
 
 void merge (int m, int n, int mid) {
     int c1=0,c2=0, k=m;
+    // a = (int*) malloc(n*sizeof(int));
     while (c1<mid-m+1&&c2<n-mid) {
         if(point[a[m+c1]][0]>point[a[mid+c2+1]][0]) {
             b[k] = a[mid+c2+1];
@@ -87,7 +88,7 @@ void merge (int m, int n, int mid) {
         }
     }
 
-    for(int i=m;i<=n;i++) {
-        *(a+i)=*(b+i);
-    }
+    // for(int i=m;i<=n;i++) {
+    //     *(a+i)=*(b+i);
+    // }
 }
