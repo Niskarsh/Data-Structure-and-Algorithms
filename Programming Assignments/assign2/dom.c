@@ -11,7 +11,7 @@ int main () {
     int n, i, j=0, k, maxY;
     scanf("%d", &n);
     point = (int**) malloc(n*sizeof(int*));
-    a = (int*) malloc(n*sizeof(int));
+    
     b = (int*) malloc(n*sizeof(int));
     
     for(i=0;i<n;i++) {
@@ -19,11 +19,10 @@ int main () {
         fflush(stdout);
         scanf("%d %d", (*(point+i)+0), (*(point+i)+1));
         *(b+i) = i;
-        *(a+i) = i;
     }
 
     mergesort(0, n-1);
-    
+    a = (int*) malloc(n*sizeof(int));
     maxY = point[b[n-1]][1];
     a[n-1]= 1;
     for(i=n-2;i>=0;i--) {
@@ -60,7 +59,6 @@ void mergesort (int m, int n) {
 
 void merge (int m, int n, int mid) {
     int c1=0,c2=0, k=m;
-    // a = (int*) malloc(n*sizeof(int));
     while (c1<mid-m+1&&c2<n-mid) {
         if(point[m+c1][0]>point[mid+c2+1][0]) {
             b[k] = mid+c2+1;
@@ -88,7 +86,4 @@ void merge (int m, int n, int mid) {
         }
     }
 
-    // for(int i=m;i<=n;i++) {
-    //     *(a+i)=*(b+i);
-    // }
 }
