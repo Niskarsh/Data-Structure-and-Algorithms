@@ -3,13 +3,12 @@
 
 int **point, *a, *b;
 
-int dominateCheck (int*, int*);
 void mergesort (int, int);
 void merge (int, int, int);
 
 int main () {
 
-    int n, i, j=0, k;
+    int n, i, j=0, k, maxY;
     scanf("%d", &n);
     point = (int**) malloc(n*sizeof(int*));
     a = (int*) malloc(n*sizeof(int));
@@ -24,23 +23,29 @@ int main () {
     }
 
     mergesort(0, n-1);
-    // dom(0, n-1);
-    for(i=0;i<n;i++) {
-        printf("A is %d that is %d %d\n", *(b+i), point[*(b+i)][0], point[*(b+i)][1]);
+    
+    maxY = point[b[n-1]][1];
+    a[n-1]= 1;
+    for(i=n-2;i>=0;i--) {
+        if( point[b[i]][1]>maxY) {
+            maxY = point[b[i]][1];
+            a[i]=1;
+        } else {
+            a[i]= 0;
+        }
     }
+    for(i=0;i<n;i++) {
+        if(a[i]==1){
+            printf("%d %d\n", point[b[i]][0], point[b[i]][1]);
+        }
+    }
+
+    free(b);
+    free(a);
+    free(point);
     
     return 0;
 }
-
-// void dom (int i, int j) {
-
-//     int pivot;
-
-//     pivot = partition(i,j);
-//     dom(i, pivot);
-//     dom(pivot+1, j);
-    
-// }
 
 void mergesort (int m, int n) {
     if(m==n) {
@@ -55,15 +60,12 @@ void mergesort (int m, int n) {
 
 void merge (int m, int n, int mid) {
     int c1=0,c2=0, k=m;
-    printf("In merge functions m %d n %d mid %d \n", m, n, mid);
     while (c1<mid-m+1&&c2<n-mid) {
         if(point[a[m+c1]][0]>point[a[mid+c2+1]][0]) {
-            printf("In merge %d %d c1 is %d c2 is %d\n", point[a[m+c1]][0], point[a[mid+c2+1]][0], c1, c2);
             b[k] = a[mid+c2+1];
             ++c2;
             ++k;
         } else {
-            printf("In merge else %d %d c1 is %d c2 is %d\n", point[a[m+c1]][0], point[a[mid+c2+1]][0], c1, c2);
             b[k] = a[m+c1];
             ++c1;
             ++k;
@@ -72,7 +74,6 @@ void merge (int m, int n, int mid) {
 
     if(c1<mid-m+1) {
         while(c1<mid-m+1) {
-            printf("In loop for c1 c1 is %d\n", c1);
             b[k] = a[m+c1];
             ++c1;
             ++k;
@@ -80,7 +81,6 @@ void merge (int m, int n, int mid) {
     }
     if(c2<n-mid) {
         while(c2<n-mid) {
-            printf("In loop for c2 c2 is %d\n", c2);
             b[k] = a[mid+c2+1];
             ++c2;
             ++k;
@@ -89,17 +89,5 @@ void merge (int m, int n, int mid) {
 
     for(int i=m;i<=n;i++) {
         *(a+i)=*(b+i);
-    }
-}
-
-int dominateCheck (int *p, int *q) {
-    if(p[0]==q[0]&&p[1]==q[1]) {
-        return 0;
-    } else if (p[0]<=q[0]&&p[1]<=q[1]) {
-        return 2;
-    } else if (p[0]>=q[0]&&p[1]>=q[1]) {
-        return 1;
-    } else {
-        return 3;
     }
 }
