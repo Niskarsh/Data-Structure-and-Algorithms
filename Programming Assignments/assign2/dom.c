@@ -1,28 +1,29 @@
 #include <stdio.h>
 #include <malloc.h>
 
-int **point, *a, *b;
+long **point, *a, *b;
 
-void mergesort (int, int);
-void merge (int, int, int);
+void mergesort (long, long);
+void merge (long, long, long);
 
 int main () {
 
-    int n, i, j=0, k, maxY;
-    scanf("%d", &n);
-    point = (int**) malloc(n*sizeof(int*));
-    
-    b = (int*) malloc(n*sizeof(int));
+    long n, i, j=0, k, maxY;
+    scanf("%ld", &n);
+    point = (long**) malloc(n*sizeof(long*));
+    a = (long*) malloc(n*sizeof(long));
+    b = (long*) malloc(n*sizeof(long));
     
     for(i=0;i<n;i++) {
-        point[i] = (int*) malloc(2*sizeof(int));
+        point[i] = (long*) malloc(2*sizeof(long));
         fflush(stdout);
-        scanf("%d %d", (*(point+i)+0), (*(point+i)+1));
+        scanf("%ld %ld", (*(point+i)+0), (*(point+i)+1));
         *(b+i) = i;
+        *(a+i) = i;
     }
 
     mergesort(0, n-1);
-    a = (int*) malloc(n*sizeof(int));
+    
     maxY = point[b[n-1]][1];
     a[n-1]= 1;
     for(i=n-2;i>=0;i--) {
@@ -35,7 +36,7 @@ int main () {
     }
     for(i=0;i<n;i++) {
         if(a[i]==1){
-            printf("%d %d\n", point[b[i]][0], point[b[i]][1]);
+            printf("%ld %ld\n", point[b[i]][0], point[b[i]][1]);
         }
     }
 
@@ -46,26 +47,26 @@ int main () {
     return 0;
 }
 
-void mergesort (int m, int n) {
+void mergesort (long m, long n) {
     if(m==n) {
         return;
     }
-    int mid = (m+n)/2;
+    long mid = (m+n)/2;
     mergesort(m, mid);
     mergesort(mid+1, n);
     merge(m, n, mid);
 
 }
 
-void merge (int m, int n, int mid) {
-    int c1=0,c2=0, k=m;
+void merge (long m, long n, long mid) {
+    long c1=0,c2=0, k=m;
     while (c1<mid-m+1&&c2<n-mid) {
-        if(point[m+c1][0]>point[mid+c2+1][0]) {
-            b[k] = mid+c2+1;
+        if(point[a[m+c1]][0]>point[a[mid+c2+1]][0]) {
+            b[k] = a[mid+c2+1];
             ++c2;
             ++k;
         } else {
-            b[k] = m+c1;
+            b[k] = a[m+c1];
             ++c1;
             ++k;
         }
@@ -73,17 +74,20 @@ void merge (int m, int n, int mid) {
 
     if(c1<mid-m+1) {
         while(c1<mid-m+1) {
-            b[k] = m+c1;
+            b[k] = a[m+c1];
             ++c1;
             ++k;
         }
     }
     if(c2<n-mid) {
         while(c2<n-mid) {
-            b[k] = mid+c2+1;
+            b[k] = a[mid+c2+1];
             ++c2;
             ++k;
         }
     }
 
+    for(long i=m;i<=n;i++) {
+        *(a+i)=*(b+i);
+    }
 }
