@@ -65,6 +65,17 @@ void merge (long m, long n, long mid) {
             b[k] = a[mid+c2+1];
             ++c2;
             ++k;
+        } else if (point[a[m+c1]][0]==point[a[mid+c2+1]][0]) {
+            if(point[a[m+c1]][1]>point[a[mid+c2+1]][1]) {
+                b[k] = a[mid+c2+1];
+                ++c2;
+                ++k;
+            } else {
+                b[k] = a[m+c1];
+                ++c1;
+                ++k;
+            }
+
         } else {
             b[k] = a[m+c1];
             ++c1;
