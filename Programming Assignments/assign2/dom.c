@@ -62,12 +62,12 @@ void merge (int m, int n, int mid) {
     int c1=0,c2=0, k=m;
     // a = (int*) malloc(n*sizeof(int));
     while (c1<mid-m+1&&c2<n-mid) {
-        if(point[a[m+c1]][0]>point[a[mid+c2+1]][0]) {
-            b[k] = a[mid+c2+1];
+        if(point[m+c1][0]>point[mid+c2+1][0]) {
+            b[k] = mid+c2+1;
             ++c2;
             ++k;
         } else {
-            b[k] = a[m+c1];
+            b[k] = m+c1;
             ++c1;
             ++k;
         }
@@ -75,14 +75,14 @@ void merge (int m, int n, int mid) {
 
     if(c1<mid-m+1) {
         while(c1<mid-m+1) {
-            b[k] = a[m+c1];
+            b[k] = m+c1;
             ++c1;
             ++k;
         }
     }
     if(c2<n-mid) {
         while(c2<n-mid) {
-            b[k] = a[mid+c2+1];
+            b[k] = mid+c2+1;
             ++c2;
             ++k;
         }
