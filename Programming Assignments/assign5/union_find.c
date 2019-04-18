@@ -16,7 +16,7 @@ int main () {
 
     int n, m, i, j, choice, inp1, inp2, f1, f2,a;
     scanf("%d", &n);
-    Elements = (struct ListNode*)malloc((n+1)*sizeof(struct ListNode));
+    Elements = (struct ListNode*)malloc(n*sizeof(struct ListNode));
     Set = (int*)malloc(n*sizeof(int));
     size = (int*)malloc(n*sizeof(int));
     for(i=0;i<n;i++) {
