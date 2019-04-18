@@ -7,14 +7,14 @@ struct ListNode {
     struct ListNode *next;
 };
 
-int find (int, int);
+int find (int);
 
 struct ListNode *Elements;
 int *Set, *size;
 
 int main () {
 
-    int n, m, i, j, choice, inp1, inp2, f1, f2;
+    int n, m, i, j, choice, inp1, inp2, f1, f2,a;
     scanf("%d", &n);
     Elements = (struct ListNode*)malloc((n+1)*sizeof(struct ListNode));
     Set = (int*)malloc(n*sizeof(int));
@@ -35,8 +35,8 @@ int main () {
             case 1:
                 scanf("%d %d", &inp1, &inp2);
                 struct ListNode *temp;
-                f1 = find(inp1, n);
-                f2 = find(inp2, n);
+                f1 = find(inp1);
+                f2 = find(inp2);
                 if(f1==f2) {
                     printf("0\n");
                 } else {
@@ -48,6 +48,7 @@ int main () {
                     }
                     temp = (*(Elements+f1)).next;
                     while(temp->next!=NULL) {
+                        Set[temp->i] = f2;
                         temp->set = f2;
                         temp = temp->next;
                     }
@@ -57,20 +58,21 @@ int main () {
                     Elements[f1].next = NULL;
                     size[f2] = size[f2]+size[f1];
                     size[f1] = 0;
+                    Set[f1] = f2;
                     printf("1\n");
                 }
                 
                 break;
             case 2:
                 scanf("%d", &inp1);
-                f1 = find(inp1, n);
+                f1 = find(inp1);
                 printf("%d\n", f1);
                 break;
             case 3:
 
                 scanf("%d %d", &inp1, &inp2);
-                f1 = find(inp1, n);
-                f2 = find(inp2, n);
+                f1 = find(inp1);
+                f2 = find(inp2);
                 if(f1==f2) {
                     printf("1\n");
                 } else {
@@ -83,17 +85,6 @@ int main () {
     return 0;
 }
 
-int find (int inp, int n) {
-    int i;
-    struct ListNode *temp;
-    for(i=0;i<n;i++) {
-        temp = Elements[i].next;
-        while(temp!=NULL) {
-            if(inp==temp->i) {
-                return i;
-            }
-            temp = temp->next;
-        }
-    }
-    return 0;
+int find (int inp) {
+    return Set[inp];
 }
