@@ -27,7 +27,6 @@ int main () {
         (*(Elements+i)).next = temp;
         Set[i] = i;
         size[i] = 1;
-        printf("i is %d\n", i);
     }
     scanf("%d", &m);
     for(i=0;i<m;i++) {
