@@ -16,7 +16,7 @@ int main () {
 
     int n, m, i, j, choice, inp1, inp2, f1, f2;
     scanf("%d", &n);
-    Elements = (struct ListNode*)malloc((n+1)*sizeof(struct ListNode*));
+    Elements = (struct ListNode*)malloc((n+1)*sizeof(struct ListNode));
     Set = (int*)malloc(n*sizeof(int));
     size = (int*)malloc(n*sizeof(int));
     for(i=0;i<n;i++) {
@@ -24,7 +24,7 @@ int main () {
         temp->i = i;
         temp->next = NULL;
         temp->set = i;
-        (*(Elements+i)).next = temp;
+        Elements[i].next = temp;
         Set[i] = i;
         size[i] = 1;
     }
@@ -55,6 +55,8 @@ int main () {
                     temp->next = Elements[f2].next;
                     Elements[f2].next = Elements[f1].next;
                     Elements[f1].next = NULL;
+                    size[f2] = size[f2]+size[f1];
+                    size[f1] = 0;
                     printf("1\n");
                 }
                 
@@ -93,4 +95,5 @@ int find (int inp, int n) {
             temp = temp->next;
         }
     }
+    return 0;
 }
